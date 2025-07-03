@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1,
+        "name": ["Hulu", "Disney+", "ESPN+"],
+        "price": 13.99,
+        "type": "monthly",
+        "description": "Stream your favorite shows and movies with Hulu, Disney+, and ESPN+ all in one bundle.",
+        "url": "https://www.hulu.com/disney-bundle"
+    }
+]
