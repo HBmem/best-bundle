@@ -1,44 +1,70 @@
+import React from "react";
+
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import RegionSelection from "../../components/RegionSelection";
+import ServicesSelect from "../../components/ServicesSelect";
+
+const regions = [
+    { 
+        id: 1,
+        name: 'North America',
+        description: 'Includes the United States, Canada, and Mexico.',
+    },
+    {
+        id: 2,
+        name: 'Europe',
+        description: 'Includes countries like the UK, Germany, France, and more.',
+    },
+    {
+        id: 3,
+        name: 'Asia',
+        description: 'Includes countries like Japan, South Korea, India, and more.',
+    },
+    {
+        id: 4,
+        name: 'Australia',
+        description: 'Covers the Australian continent and surrounding islands.',
+    },
+    {
+        id: 5,
+        name: 'South America',
+        description: 'Includes Brazil, Argentina, Chile, and other South American countries.',
+    },
+    {
+        id: 6,
+        name: 'Africa',
+        description: 'Includes countries across the African continent.',
+    },
+];
 
 function FBB() {
-    return (
-        <Box>
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '100vh',
-                }}
-            >
-                <Stack
-                    spacing={2}
-                    sx={{
-                        textAlign: 'center',
-                        maxWidth: '600px',
-                    }}
-                >
-                    <Typography
-                        variant="h1"
-                        component="h1"
-                        sx={{ fontSize: '3rem', fontWeight: 'bold' }}
-                    >
-                        Find Best Bundle
-                    </Typography>
-                    <Typography variant="body1">
-                        Let's find the best bundle of streaming services to make sure that you can always watch your favorite movies, TV shows, and documentaries.
-                    </Typography>
-                </Stack>
-            </Container>
-            
-            <RegionSelection />
-        </Box>
-    )
+    const [selectedRegion, setSelectedRegion] = React.useState(0);
+
+    const handleRegionChange = (event) => {
+        setSelectedRegion(event.target.value);
+    };
+
+    console.log("Selected Region:", selectedRegion);
+
+    if (selectedRegion === 0) {
+        return (
+            <Box>
+                <RegionSelection
+                    regions={regions}
+                    selectedRegion={selectedRegion}
+                    handleRegionChange={handleRegionChange}
+                />
+            </Box>
+        );
+    } else if (selectedRegion > 0) {
+        return (
+            <Box>
+                <ServicesSelect
+                    region={regions[selectedRegion - 1]}
+                />
+            </Box>
+        );
+    }
 }
 
 export default FBB;

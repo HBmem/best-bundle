@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Home from './views/Home';
 import FBB from './views/FBB';
 import WTW from './views/WTW';
+import About from './views/About';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -20,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/find-best-bundle" element={<FBB />} />
         <Route path="/where-to-watch" element={<WTW />} />
-        <Route path="/about" element={<h1>About Page</h1>} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
       <Footer />
