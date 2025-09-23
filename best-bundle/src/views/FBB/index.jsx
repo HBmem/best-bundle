@@ -1,54 +1,34 @@
 import React from "react";
 
-import Box from "@mui/material/Box";
+import regions from "../../data/regions.json"
+
 import RegionSelection from "../../components/RegionSelection";
 import ServicesSelect from "../../components/ServicesSelect";
+import BestBundle from "../../components/BestBundle";
 
-const regions = [
-    { 
-        id: 1,
-        name: 'North America',
-        description: 'Includes the United States, Canada, and Mexico.',
-    },
-    {
-        id: 2,
-        name: 'Europe',
-        description: 'Includes countries like the UK, Germany, France, and more.',
-    },
-    {
-        id: 3,
-        name: 'Asia',
-        description: 'Includes countries like Japan, South Korea, India, and more.',
-    },
-    {
-        id: 4,
-        name: 'Australia',
-        description: 'Covers the Australian continent and surrounding islands.',
-    },
-    {
-        id: 5,
-        name: 'South America',
-        description: 'Includes Brazil, Argentina, Chile, and other South American countries.',
-    },
-    {
-        id: 6,
-        name: 'Africa',
-        description: 'Includes countries across the African continent.',
-    },
-];
+import Box from "@mui/material/Box";
 
 function FBB() {
     const [selectedRegion, setSelectedRegion] = React.useState(0);
+    const [selectionComplete, setSelectionComplete] = React.useState(false);
+    const [selectedServices, setSelectedServices] = React.useState([]);
 
     const handleRegionChange = (event) => {
         setSelectedRegion(event.target.value);
     };
 
-    console.log("Selected Region:", selectedRegion);
+    const handleSelectionComplete = (selection) => {
+        setSelectedServices(selection);
+        console.log("Test Succesful");
+        console.log(selection);
+        setSelectionComplete(true);
+    }
 
-    if (selectedRegion === 0) {
+    if (selectedRegion === 0) { // Region Selection
         return (
-            <Box>
+            <Box sx={{
+                marginTop: "64px", // Adjust for fixed navbar height
+            }}>
                 <RegionSelection
                     regions={regions}
                     selectedRegion={selectedRegion}
@@ -56,14 +36,27 @@ function FBB() {
                 />
             </Box>
         );
-    } else if (selectedRegion > 0) {
+    } else if (selectedRegion > 0 && selectionComplete === false) { // Service Selection
         return (
-            <Box>
+            <Box sx={{
+                marginTop: "64px", // Adjust for fixed navbar height
+            }}>
                 <ServicesSelect
                     region={regions[selectedRegion - 1]}
+                    handleSelectionComplete={handleSelectionComplete}
                 />
             </Box>
         );
+    } else if (selectedRegion > 0 && selectionComplete === true) { // Find Best Bundle
+        return (
+            <Box sx={{
+                marginTop: "64px", // Adjust for fixed navbar height
+            }}>
+                <BestBundle
+                    selections={selectedServices}
+                />
+            </Box>
+        )
     }
 }
 

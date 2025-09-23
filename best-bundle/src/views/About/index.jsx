@@ -13,6 +13,7 @@ function About() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     minHeight: '100vh',
+                    marginTop: '64px', // Adjust for fixed navbar height
                 }}
             >
                 <Stack

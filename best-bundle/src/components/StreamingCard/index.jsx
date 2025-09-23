@@ -6,19 +6,32 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 function StreamingCard(props) {
-    const { streamingService, slectedServices, handleServiceClick } = props;
+    const { streamingService, selectedServices, handleServiceClick } = props;
 
     return (
         <Card>
             <CardActionArea
                 onClick={() => handleServiceClick(streamingService)}
+                data-active={selectedServices.includes(streamingService.id) ? '' : undefined}
                 sx={{
                     textAlign: 'center',
                     padding: 2,
-                    borderBlockColor: streamingService.color || '#ccc',
-                    borderBlockWidth: 2,
-                    borderBlockStyle: 'solid',
                     height: '100%',
+                    '&[data-active]': {
+                        backgroundColor: streamingService.color ? `${streamingService.color}33` : '#fff',
+                        borderColor: streamingService.color || '#ccc',
+                        borderWidth: 3,
+                        borderStyle: 'solid',
+
+                    },
+                    '&:hover': {
+                        backgroundColor: streamingService.color ? `${streamingService.color}22` : '#f5f5f5',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                        transform: 'scale(1.02)',
+                        transition: 'transform 0.2s ease-in-out',
+                        cursor: 'pointer',
+                    },
+                    borderRadius: 2,
                 }}
             >
                 <CardMedia

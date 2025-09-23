@@ -10,10 +10,42 @@ import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 import SelectedCard from "../SelectedCard";
 import Grid from "@mui/material/Grid";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function ServicesSelect(props) {
-    const { region } = props;
+    const { region, handleSelectionComplete } = props;
     const [selectedServices, setSelectedServices] = React.useState([]);
+
+    const actions = [
+        {
+            name: 'Clear Selection',
+            icon: <CancelIcon />,
+            onClick: () => {
+                setSelectedServices([]);
+            }
+        },
+        {
+            name: 'Find Best Bundle',
+            icon: <CheckCircleIcon />,
+            onClick: () => {
+                let selections = [];
+                if (region.id === 1) { // US
+                    selectedServices.forEach(service => {
+                        selections.push(servicesUS[service - 1])
+                    });
+                } else {
+                    // TODO: inform user of error
+                }
+                
+                handleSelectionComplete(selections);
+            }
+    
+        }
+    ];
 
     function handleServiceClick(service) {
         if (selectedServices.includes(service.id)) {
@@ -23,7 +55,6 @@ function ServicesSelect(props) {
         }
     }
 
-    console.log("Selected Services:", selectedServices);
     function renderCards() {
         if (region.id === 1) {
             return (
@@ -43,14 +74,12 @@ function ServicesSelect(props) {
                         <StreamingCard
                             key={service.id}
                             streamingService={service}
+                            selectedServices={selectedServices}
                             handleServiceClick={handleServiceClick}
                         />
                     ))}
                 </Container>
             )
-            
-        } else if (region.id === 2) {
-            
         } else {
             return (
                 <Typography variant="body1" sx={{ textAlign: 'center', padding: 2 }}>
@@ -69,6 +98,8 @@ function ServicesSelect(props) {
                         maxWidth: '500px',
                         width: '100%',
                         minHeight: '100px',
+                        maxHeight: '100px',
+                        marginBottom: 4,
                     }}
                 />
             )
@@ -82,7 +113,6 @@ function ServicesSelect(props) {
                         justifyContent: 'center',
                         width: '100%',
                         maxWidth: '500px',
-                        minHeight: '100px',
                         padding: 2,
                         bgcolor: 'grey.900',
                         borderRadius: 2,
@@ -103,6 +133,30 @@ function ServicesSelect(props) {
         }
     }
 
+    function renderSpeedDial() {
+        if (selectedServices.length > 0) {
+            return (
+                <SpeedDial
+                    ariaLabel="Action SpeedDial"
+                    sx={{ position: 'fixed', bottom: 16, right: 16 }}
+                    icon={<SpeedDialIcon />}
+                >
+                    {actions.map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            onClick={action.onClick}
+                            sx={{
+                                backgroundColor: "green"
+                            }}
+                        />
+                    ))}
+                </SpeedDial>
+            );
+        }
+        return null;
+    }
     return (
         <Box>
             <Box
@@ -112,6 +166,7 @@ function ServicesSelect(props) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     minHeight: '100vh',
+                    marginTop: "64px", // Adjust for fixed navbar height
                 }}
             >
                 <Box
@@ -129,9 +184,11 @@ function ServicesSelect(props) {
                     </Typography>
                 </Box>
 
-                {renderSelectedServices()}
+                {renderSelectedServices()}                
 
                 {renderCards()}
+
+                {renderSpeedDial()}
             </Box>
         </Box>
     );

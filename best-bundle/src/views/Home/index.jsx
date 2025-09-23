@@ -62,7 +62,9 @@ function Home() {
                     }}
                 >
                     {options.map((option) => (
-                        <Card>
+                        <Card
+                            key={option.id}
+                        >
                             <CardActionArea
                                 onClick={() => navigate(option.link)}
                                 sx={{

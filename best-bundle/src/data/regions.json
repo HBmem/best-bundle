@@ -1,0 +1,32 @@
+[
+    { 
+        "id": 1,
+        "name": "North America",
+        "description": "Includes the United States, Canada, and Mexico."
+    },
+    {
+        "id": 2,
+        "name": "Europe",
+        "description": "Includes countries like the UK, Germany, France, and more."
+    },
+    {
+        "id": 3,
+        "name": "Asia",
+        "description": "Includes countries like Japan, South Korea, India, and more."
+    },
+    {
+        "id": 4,
+        "name": "Australia",
+        "description": "Covers the Australian continent and surrounding islands."
+    },
+    {
+        "id": 5,
+        "name": "South America",
+        "description": "Includes Brazil, Argentina, Chile, and other South American countries."
+    },
+    {
+        "id": 6,
+        "name": "Africa",
+        "description": "Includes countries across the African continent."
+    }
+]

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -7,7 +9,13 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import visuallyHidden from "@mui/utils/visuallyHidden";
 
+const apiKey = process.env.REACT_APP_WATCHMODE_API_KEY;
+
 function WTW() {
+  const [ title, setTitle ] = React.useState("");
+
+  console.log(apiKey);
+
   return (
     <Box>
       <Container
@@ -67,7 +75,11 @@ function WTW() {
               variant="contained"
               color="primary"
               size="small"
-              sx={{ minWidth: 'fit-content' }}
+              sx={{
+                minWidth: 'fit-content',
+                paddingLeft: "1rem",
+                paddingRight: "1rem"
+              }}
             >
               Search
             </Button>
